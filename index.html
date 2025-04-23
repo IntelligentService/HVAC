@@ -106,30 +106,30 @@
     <div class="section">
       <label>Select the equipment you're replacing:</label>
       <div style="text-align:center">
-  <img src="Furnace.webp" class="option-img" onclick="selectSystem('furnace')" alt="Trane Furnace">
+  <img src="Furnace.png" class="option-img" onclick="selectSystem('furnace')" alt="Trane Furnace">
   <p>High-efficiency heating, ideal for consistent winter comfort and energy savings.</p>
 </div>
       <div style="text-align:center">
-  <img src="air_conditioner.webp" class="option-img" onclick="selectSystem('ac')" alt="Trane AC">
+  <img src="air_conditioner.png" class="option-img" onclick="selectSystem('ac')" alt="Trane AC">
   <p>Efficient cooling to keep your home comfortable during summer heat.</p>
 </div>
       <div style="text-align:center">
-  <img src="Furnace.webp" class="option-img" onclick="selectSystem('full')" alt="Full System (Furnace + AC)">
+  <img src="Full_system.png" class="option-img" onclick="selectSystem('full')" alt="Full System (Furnace + AC)">
   <p>Complete comfort solution with both heating and cooling upgrades.</p>
 </div>
     </div>
 
     <div id="efficiencySection" class="section hidden">
       <label>Efficiency Level</label>
-      <input type="radio" name="efficiency" value="Standard" onchange="captureSelection()"> Standard (SEER Rating: 13–14)<br>
-      <input type="radio" name="efficiency" value="Mid" onchange="captureSelection()"> Mid Efficiency (SEER Rating: 15–17)<br>
-      <input type="radio" name="efficiency" value="High" onchange="captureSelection()"> High Efficiency (SEER Rating: 18–22)
+      <input type="radio" name="efficiency" value="Standard" onchange="captureSelection()"> Standard (Lower cost, basic performance.) <br>
+      <input type="radio" name="efficiency" value="Mid" onchange="captureSelection()"> Mid Efficiency (Balance between cost and energy savings.) <br>
+      <input type="radio" name="efficiency" value="High" onchange="captureSelection()"> High Efficiency (Maximum comfort, quiet operation, and savings.)
     </div>
 
     <div id="accessories" class="section hidden">
       <label>Choose Your Thermostat</label>
       <div style="text-align:center">
-  <img src="Thermostat_T4.jpg" class="option-img" onclick="selectThermostat('Honeywell T4')" alt="Honeywell T4">
+  <img src="Thermostat_T4.png" class="option-img" onclick="selectThermostat('Honeywell T4')" alt="Honeywell T4">
   <p>Simple, reliable programmable control with energy-saving settings.</p>
 </div>
       <div style="text-align:center">
@@ -139,21 +139,21 @@
 
       <label style="margin-top:15px;">Optional Accessories</label><br>
       <div style="text-align:center">
-  <img src="Humidifier.jpg" class="option-img" onclick="toggleAccessory('Humidifier')" alt="Humidifier">
+  <img src="Humidifier.png" class="option-img" onclick="toggleAccessory('Humidifier')" alt="Humidifier">
   <p>Adds moisture to dry air to protect your comfort and home finishes.</p>
 </div>
       <div style="text-align:center">
-  <img src="Air_Purifier.jpg" class="option-img" onclick="toggleAccessory('Air Purifier')" alt="Air Purifier">
+  <img src="Air_Purifier.png" class="option-img" onclick="toggleAccessory('Air Purifier')" alt="Air Purifier">
   <p>Reduces allergens, odors, and airborne contaminants for cleaner air.</p>
 </div>
 
       <label style="margin-top:15px;">Filtration Options</label><br>
       <div style="text-align:center">
-  <img src="Filter_1Inch.webp" class="option-img" onclick="selectFilter('1 Inch')" alt="1 Inch Filter">
+  <img src="Filter_1Inch.png" class="option-img" onclick="selectFilter('1 Inch')" alt="1 Inch Filter">
   <p>Standard filtration option, changed monthly for basic dust control.</p>
 </div>
       <div style="text-align:center">
-  <img src="Filter_4inch.jpg" class="option-img" onclick="selectFilter('4 Inch')" alt="4 Inch Media Filter">
+  <img src="Filter_4inch.png" class="option-img" onclick="selectFilter('4 Inch')" alt="4 Inch Media Filter">
   <p>Improved dust and allergen removal with longer-lasting filter changes.</p>
 </div>
       <div style="text-align:center">
