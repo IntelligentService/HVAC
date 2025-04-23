@@ -4,97 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HVAC Sales Form</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #eef7fb, #ffffff);
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 30px;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    header img {
-      max-width: 280px;
-    }
-    h1 {
-      font-size: 28px;
-      color: #007cbf;
-      margin-top: 10px;
-    }
-    .section {
-      border: 1px solid #cfe6f1;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 25px;
-      background: #f9fcfe;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 8px;
-      font-size: 16px;
-      color: #222;
-    }
-    .option-img {
-      width: 180px;
-      border-radius: 10px;
-      margin: 10px;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .option-img:hover {
-      border-color: #007cbf;
-    }
-    .hidden {
-      display: none;
-    }
-    .summary {
-      border-top: 2px solid #007cbf;
-      padding-top: 30px;
-      margin-top: 40px;
-    }
-    .summary h2 {
-      color: #007cbf;
-      margin-bottom: 15px;
-    }
-    .summary-content {
+  <style>$1
+
+    .options-grid {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 20px;
     }
-    .summary-content img {
-      width: 220px;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      object-fit: contain;
-      transition: transform 0.2s ease;
+
+    .option-box {
+      width: 200px;
+      text-align: center;
     }
-    .summary-content img:hover {
-      transform: scale(1.03);
+
+    .option-img.selected {
+      border-color: #28a745;
     }
-    button {
-      padding: 10px 20px;
-      background-color: #007cbf;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-  </style>
+
 </head>
 <body>
   <div class="container">
@@ -105,16 +32,19 @@
 
     <div class="section">
       <label>Select the equipment you're replacing:</label>
-      <div style="text-align:center">
-  <img src="Furnace.png" class="option-img" onclick="selectSystem('furnace')" alt="Trane Furnace">
+      <div class="options-grid">
+  <div class="option-box">
+    <img src="Furnace.png" class="option-img" id="furnaceImg" onclick="toggleSystem('furnace')" alt="Trane Furnace">
   <p>High-efficiency heating, ideal for consistent winter comfort and energy savings.</p>
 </div>
-      <div style="text-align:center">
-  <img src="air_conditioner.png" class="option-img" onclick="selectSystem('ac')" alt="Trane AC">
+        </div>
+  <div class="option-box">
+    <img src="air_conditioner.png" class="option-img" id="acImg" onclick="toggleSystem('ac')" alt="Trane AC">
   <p>Efficient cooling to keep your home comfortable during summer heat.</p>
 </div>
-      <div style="text-align:center">
-  <img src="Full_system.png" class="option-img" onclick="selectSystem('full')" alt="Full System (Furnace + AC)">
+        </div>
+  <div class="option-box">
+    <img src="Full_system.png" class="option-img" id="fullImg" onclick="toggleSystem('full')" alt="Full System (Furnace + AC)">
   <p>Complete comfort solution with both heating and cooling upgrades.</p>
 </div>
     </div>
@@ -128,36 +58,36 @@
 
     <div id="accessories" class="section hidden">
       <label>Choose Your Thermostat</label>
-      <div style="text-align:center">
-  <img src="Thermostat_T4.png" class="option-img" onclick="selectThermostat('Honeywell T4')" alt="Honeywell T4">
+      <div class="option-box">
+  <img src="Thermostat_T4.png" class="option-img" id="thermostatT4Img" onclick="toggleThermostat('Honeywell T4')" alt="Honeywell T4">
   <p>Simple, reliable programmable control with energy-saving settings.</p>
 </div>
-      <div style="text-align:center">
-  <img src="Thermostat_Ecobee.png" class="option-img" onclick="selectThermostat('Ecobee Pro')" alt="Ecobee Pro">
+      <div class="option-box">
+  <img src="Thermostat_Ecobee.png" class="option-img" id="thermostatEcobeeImg" onclick="toggleThermostat('Ecobee Pro')" alt="Ecobee Pro">
   <p>Smart thermostat with Wi-Fi, voice control, and home automation integration.</p>
 </div>
 
       <label style="margin-top:15px;">Optional Accessories</label><br>
-      <div style="text-align:center">
-  <img src="Humidifier.png" class="option-img" onclick="toggleAccessory('Humidifier')" alt="Humidifier">
+      <div class="option-box">
+  <img src="Humidifier.png" class="option-img" id="humidifierImg" onclick="toggleAccessory('Humidifier')" alt="Humidifier">
   <p>Adds moisture to dry air to protect your comfort and home finishes.</p>
 </div>
-      <div style="text-align:center">
-  <img src="Air_Purifier.png" class="option-img" onclick="toggleAccessory('Air Purifier')" alt="Air Purifier">
+      <div class="option-box">
+  <img src="Air_Purifier.png" class="option-img" id="airPurifierImg" onclick="toggleAccessory('Air Purifier')" alt="Air Purifier">
   <p>Reduces allergens, odors, and airborne contaminants for cleaner air.</p>
 </div>
 
       <label style="margin-top:15px;">Filtration Options</label><br>
-      <div style="text-align:center">
-  <img src="Filter_1Inch.png" class="option-img" onclick="selectFilter('1 Inch')" alt="1 Inch Filter">
+      <div class="option-box">
+  <img src="Filter_1Inch.png" class="option-img" id="filter1Img" onclick="toggleFilter('1 Inch')" alt="1 Inch Filter">
   <p>Standard filtration option, changed monthly for basic dust control.</p>
 </div>
-      <div style="text-align:center">
-  <img src="Filter_4inch.png" class="option-img" onclick="selectFilter('4 Inch')" alt="4 Inch Media Filter">
+      <div class="option-box">
+  <img src="Filter_4inch.png" class="option-img" id="filter4Img" onclick="toggleFilter('4 Inch')" alt="4 Inch Media Filter">
   <p>Improved dust and allergen removal with longer-lasting filter changes.</p>
 </div>
-      <div style="text-align:center">
-  <img src="Filter_Cleaneffects.png" class="option-img" onclick="selectFilter('CleanEffects')" alt="CleanEffects Air Cleaner">
+      <div class="option-box">
+  <img src="Filter_Cleaneffects.png" class="option-img" id="filterCleanImg" onclick="toggleFilter('CleanEffects')" alt="CleanEffects Air Cleaner">
   <p>Premium filtration removing up to 99.98% of particles from indoor air.</p>
 </div>
     </div>
@@ -177,31 +107,74 @@
     let selectedAccessories = [];
     let selectedFilter = "";
 
-    function selectSystem(type) {
-      selectedSystem = type;
-      document.getElementById("efficiencySection").classList.remove("hidden");
-      document.getElementById("accessories").classList.remove("hidden");
-      captureSelection();
-    }
+    function toggleSystem(type) {
+  const types = ['furnace', 'ac', 'full'];
+  types.forEach(t => document.getElementById(t + 'Img').classList.remove('selected'));
 
-    function selectThermostat(name) {
-      selectedThermostat = name;
-      captureSelection();
-    }
+  if (selectedSystem === type) {
+    selectedSystem = '';
+    document.getElementById("efficiencySection").classList.add("hidden");
+    document.getElementById("accessories").classList.add("hidden");
+  } else {
+    selectedSystem = type;
+    document.getElementById(type + 'Img').classList.add('selected');
+    document.getElementById("efficiencySection").classList.remove("hidden");
+    document.getElementById("accessories").classList.remove("hidden");
+  }
+  captureSelection();
+}
+
+    function toggleThermostat(name) {
+  const ids = {
+    'Honeywell T4': 'thermostatT4Img',
+    'Ecobee Pro': 'thermostatEcobeeImg'
+  };
+  Object.values(ids).forEach(id => document.getElementById(id).classList.remove('selected'));
+
+  if (selectedThermostat === name) {
+    selectedThermostat = '';
+  } else {
+    selectedThermostat = name;
+    document.getElementById(ids[name]).classList.add('selected');
+  }
+  captureSelection();
+}
 
     function toggleAccessory(name) {
-      if (selectedAccessories.includes(name)) {
-        selectedAccessories = selectedAccessories.filter(item => item !== name);
-      } else {
+  const ids = {
+    'Humidifier': 'humidifierImg',
+    'Air Purifier': 'airPurifierImg'
+  };
+  if (selectedAccessories.includes(name)) {
+    selectedAccessories = selectedAccessories.filter(item => item !== name);
+    document.getElementById(ids[name]).classList.remove('selected');
+  } else {
+    selectedAccessories.push(name);
+    document.getElementById(ids[name]).classList.add('selected');
+  }
+  captureSelection();
+} else {
         selectedAccessories.push(name);
       }
       captureSelection();
     }
 
-    function selectFilter(name) {
-      selectedFilter = name;
-      captureSelection();
-    }
+    function toggleFilter(name) {
+  const filters = {
+    '1 Inch': 'filter1Img',
+    '4 Inch': 'filter4Img',
+    'CleanEffects': 'filterCleanImg'
+  };
+  Object.values(filters).forEach(id => document.getElementById(id).classList.remove('selected'));
+
+  if (selectedFilter === name) {
+    selectedFilter = '';
+  } else {
+    selectedFilter = name;
+    document.getElementById(filters[name]).classList.add('selected');
+  }
+  captureSelection();
+}
 
     function captureSelection() {
       const summaryList = document.getElementById("summaryList");
