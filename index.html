@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HVAC Sales Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #e5f6fd, #ffffff);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header img {
+      max-width: 300px;
+    }
+    h1 {
+      font-size: 24px;
+      color: #00a2e8;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #222;
+    }
+    select, input[type=radio], input[type=checkbox] {
+      margin-bottom: 10px;
+    }
+    .hidden {
+      display: none;
+    }
+    .image-preview {
+      max-width: 300px;
+      margin-top: 10px;
+    }
+    .summary {
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #00a2e8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="IP-lockup-trans.png" alt="Intelligent Service Logo" />
+      <h1>HVAC System Replacement Options</h1>
+    </header>
+
+    <div class="section">
+      <label for="systemType">What part of your system are you looking to replace?</label>
+      <select id="systemType" onchange="updateForm()">
+        <option value="">-- Select an option --</option>
+        <option value="full">Full System (Furnace & AC)</option>
+        <option value="furnace">Furnace Only</option>
+        <option value="ac">Air Conditioner Only</option>
+      </select>
+    </div>
+
+    <div id="furnaceImage" class="section hidden">
+      <label>Furnace Example</label>
+      <img class="image-preview" src="Furnace.webp" alt="Furnace" />
+    </div>
+
+    <div id="acImage" class="section hidden">
+      <label>Air Conditioner Example</label>
+      <img class="image-preview" src="air_conditioner.webp" alt="Air Conditioner" />
+    </div>
+
+    <div id="efficiencySection" class="section hidden">
+      <label>How efficient would you like your new system to be?</label>
+      <div>
+        <input type="radio" name="efficiency" value="Standard" onchange="captureSelection()" /> Standard Efficiency
+      </div>
+      <div>
+        <input type="radio" name="efficiency" value="Mid" onchange="captureSelection()" /> Mid Efficiency
+      </div>
+      <div>
+        <input type="radio" name="efficiency" value="High" onchange="captureSelection()" /> High Efficiency
+      </div>
+    </div>
+
+    <div id="accessories" class="section hidden">
+      <label>Choose Accessories</label>
+      <div>
+        <input type="radio" name="thermostat" value="Honeywell T4" onchange="captureSelection()" /> Honeywell T4
+        <img class="image-preview" src="Thermostat_T4.jpg" alt="Honeywell T4 Thermostat" />
+      </div>
+
+      <div>
+        <input type="radio" name="thermostat" value="Ecobee Pro" onchange="captureSelection()" /> Ecobee Pro
+        <img class="image-preview" src="Thermostat_Ecobee.png" alt="Ecobee Pro Thermostat" />
+      </div>
+
+      <div>
+        <input type="checkbox" name="accessory" value="Humidifier" onchange="captureSelection()" /> Whole-Home Humidifier
+        <img class="image-preview" src="Humidifier.jpg" alt="Humidifier" />
+      </div>
+
+      <div>
+        <input type="checkbox" name="accessory" value="Air Purifier" onchange="captureSelection()" /> Air Purifier
+        <img class="image-preview" src="Air_Purifier.jpg" alt="Air Purifier" />
+      </div>
+
+      <label>Filtration Options</label>
+      <div>
+        <input type="radio" name="filter" value="1 Inch" onchange="captureSelection()" /> 1" Filter Rack
+        <img class="image-preview" src="Filter_1Inch.webp" alt="1 Inch Filter" />
+      </div>
+      <div>
+        <input type="radio" name="filter" value="4 Inch" onchange="captureSelection()" /> 4" Media Filter Cabinet
+        <img class="image-preview" src="Filter_4inch.jpg" alt="4 Inch Filter" />
+      </div>
+      <div>
+        <input type="radio" name="filter" value="CleanEffects" onchange="captureSelection()" /> CleanEffects™ Whole House Cleaner
+        <img class="image-preview" src="Filter_Cleaneffects.png" alt="CleanEffects Filter" />
+      </div>
+    </div>
+
+    <div class="summary section hidden" id="summary">
+      <h2>Customer Selections Summary</h2>
+      <ul id="summaryList"></ul>
+      <button onclick="window.print()">Download PDF</button>
+      <button onclick="emailSelection()">Email Selections</button>
+    </div>
+  </div>
+
+  <script>
+    function updateForm() {
+      const type = document.getElementById("systemType").value;
+      document.getElementById("furnaceImage").classList.add("hidden");
+      document.getElementById("acImage").classList.add("hidden");
+      document.getElementById("efficiencySection").classList.add("hidden");
+      document.getElementById("accessories").classList.add("hidden");
+      document.getElementById("summary").classList.add("hidden");
+
+      if (type === "furnace") {
+        document.getElementById("furnaceImage").classList.remove("hidden");
+      } else if (type === "ac") {
+        document.getElementById("acImage").classList.remove("hidden");
+      } else if (type === "full") {
+        document.getElementById("furnaceImage").classList.remove("hidden");
+        document.getElementById("acImage").classList.remove("hidden");
+      }
+
+      if (type !== "") {
+        document.getElementById("efficiencySection").classList.remove("hidden");
+        document.getElementById("accessories").classList.remove("hidden");
+      }
+    }
+
+    function captureSelection() {
+      const summaryList = document.getElementById("summaryList");
+      summaryList.innerHTML = "";
+
+      const systemType = document.getElementById("systemType").value;
+      if (systemType) summaryList.innerHTML += `<li><strong>System:</strong> ${systemType}</li>`;
+
+      const efficiency = document.querySelector("input[name='efficiency']:checked");
+      if (efficiency) summaryList.innerHTML += `<li><strong>Efficiency:</strong> ${efficiency.value}</li>`;
+
+      const thermostat = document.querySelector("input[name='thermostat']:checked");
+      if (thermostat) summaryList.innerHTML += `<li><strong>Thermostat:</strong> ${thermostat.value}</li>`;
+
+      const accessories = document.querySelectorAll("input[name='accessory']:checked");
+      accessories.forEach(acc => summaryList.innerHTML += `<li><strong>Accessory:</strong> ${acc.value}</li>`);
+
+      const filter = document.querySelector("input[name='filter']:checked");
+      if (filter) summaryList.innerHTML += `<li><strong>Filter:</strong> ${filter.value}</li>`;
+
+      document.getElementById("summary").classList.remove("hidden");
+    }
+
+    function emailSelection() {
+      const body = encodeURIComponent(document.getElementById("summaryList").innerText);
+      const subject = encodeURIComponent("HVAC System Selection Summary");
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+  </script>
+</body>
+</html>
