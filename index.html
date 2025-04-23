@@ -46,8 +46,16 @@
       font-size: 16px;
       color: #222;
     }
-    select, input[type=radio], input[type=checkbox] {
-      margin: 5px 10px 10px 0;
+    .option-img {
+      width: 180px;
+      border-radius: 10px;
+      margin: 10px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .option-img:hover {
+      border-color: #007cbf;
     }
     .hidden {
       display: none;
@@ -67,13 +75,16 @@
       gap: 20px;
     }
     .summary-content img {
-  width: 220px;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  object-fit: contain;
-  transition: transform 0.2s ease;
-}
+      width: 220px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      object-fit: contain;
+      transition: transform 0.2s ease;
+    }
+    .summary-content img:hover {
+      transform: scale(1.03);
+    }
     button {
       padding: 10px 20px;
       background-color: #007cbf;
@@ -83,11 +94,7 @@
       cursor: pointer;
       margin-top: 20px;
     }
-  .summary-content img:hover {
-  transform: scale(1.03);
-}
-
-</style>
+  </style>
 </head>
 <body>
   <div class="container">
@@ -97,35 +104,32 @@
     </header>
 
     <div class="section">
-      <label for="systemType">What part of your system are you looking to replace?</label>
-      <select id="systemType" onchange="updateForm()">
-        <option value="">-- Select an option --</option>
-        <option value="full">Full System (Furnace & AC)</option>
-        <option value="furnace">Furnace Only</option>
-        <option value="ac">Air Conditioner Only</option>
-      </select>
+      <label>Select the equipment you're replacing:</label>
+      <img src="Furnace.webp" class="option-img" onclick="selectSystem('furnace')" alt="Trane Furnace">
+      <img src="air_conditioner.webp" class="option-img" onclick="selectSystem('ac')" alt="Trane AC">
+      <img src="Furnace.webp" class="option-img" onclick="selectSystem('full')" alt="Full System (Furnace + AC)">
     </div>
 
     <div id="efficiencySection" class="section hidden">
       <label>Efficiency Level</label>
-      <input type="radio" name="efficiency" value="Standard" onchange="captureSelection()"> Standard (80% Furnace / 13 SEER AC)<br>
-      <input type="radio" name="efficiency" value="Mid" onchange="captureSelection()"> Mid (90–95% Furnace / 16 SEER AC)<br>
-      <input type="radio" name="efficiency" value="High" onchange="captureSelection()"> High (96%+ Furnace / 18+ SEER AC)
+      <input type="radio" name="efficiency" value="Standard" onchange="captureSelection()"> Standard (SEER Rating: 13–14)<br>
+      <input type="radio" name="efficiency" value="Mid" onchange="captureSelection()"> Mid Efficiency (SEER Rating: 15–17)<br>
+      <input type="radio" name="efficiency" value="High" onchange="captureSelection()"> High Efficiency (SEER Rating: 18–22)
     </div>
 
     <div id="accessories" class="section hidden">
-      <label>Thermostat Options</label>
-      <input type="radio" name="thermostat" value="Honeywell T4" onchange="captureSelection()"> Honeywell T4<br>
-      <input type="radio" name="thermostat" value="Ecobee Pro" onchange="captureSelection()"> Ecobee Pro<br>
+      <label>Choose Your Thermostat</label>
+      <img src="Thermostat_T4.jpg" class="option-img" onclick="selectThermostat('Honeywell T4')" alt="Honeywell T4">
+      <img src="Thermostat_Ecobee.png" class="option-img" onclick="selectThermostat('Ecobee Pro')" alt="Ecobee Pro">
 
-      <label style="margin-top:15px;">Optional Accessories</label>
-      <input type="checkbox" name="accessory" value="Humidifier" onchange="captureSelection()"> Whole-Home Humidifier<br>
-      <input type="checkbox" name="accessory" value="Air Purifier" onchange="captureSelection()"> Air Purifier<br>
+      <label style="margin-top:15px;">Optional Accessories</label><br>
+      <img src="Humidifier.jpg" class="option-img" onclick="toggleAccessory('Humidifier')" alt="Humidifier">
+      <img src="Air_Purifier.jpg" class="option-img" onclick="toggleAccessory('Air Purifier')" alt="Air Purifier">
 
-      <label style="margin-top:15px;">Filtration Options</label>
-      <input type="radio" name="filter" value="1 Inch" onchange="captureSelection()"> 1" Filter Rack<br>
-      <input type="radio" name="filter" value="4 Inch" onchange="captureSelection()"> 4" Media Filter Cabinet<br>
-      <input type="radio" name="filter" value="CleanEffects" onchange="captureSelection()"> CleanEffects™ Air Cleaner
+      <label style="margin-top:15px;">Filtration Options</label><br>
+      <img src="Filter_1Inch.webp" class="option-img" onclick="selectFilter('1 Inch')" alt="1 Inch Filter">
+      <img src="Filter_4inch.jpg" class="option-img" onclick="selectFilter('4 Inch')" alt="4 Inch Media Filter">
+      <img src="Filter_Cleaneffects.png" class="option-img" onclick="selectFilter('CleanEffects')" alt="CleanEffects Air Cleaner">
     </div>
 
     <div class="summary section hidden" id="summary">
@@ -138,16 +142,34 @@
   </div>
 
   <script>
-    function updateForm() {
-      const type = document.getElementById("systemType").value;
-      document.getElementById("efficiencySection").classList.add("hidden");
-      document.getElementById("accessories").classList.add("hidden");
-      document.getElementById("summary").classList.add("hidden");
+    let selectedSystem = "";
+    let selectedThermostat = "";
+    let selectedAccessories = [];
+    let selectedFilter = "";
 
-      if (type !== "") {
-        document.getElementById("efficiencySection").classList.remove("hidden");
-        document.getElementById("accessories").classList.remove("hidden");
+    function selectSystem(type) {
+      selectedSystem = type;
+      document.getElementById("efficiencySection").classList.remove("hidden");
+      document.getElementById("accessories").classList.remove("hidden");
+      captureSelection();
+    }
+
+    function selectThermostat(name) {
+      selectedThermostat = name;
+      captureSelection();
+    }
+
+    function toggleAccessory(name) {
+      if (selectedAccessories.includes(name)) {
+        selectedAccessories = selectedAccessories.filter(item => item !== name);
+      } else {
+        selectedAccessories.push(name);
       }
+      captureSelection();
+    }
+
+    function selectFilter(name) {
+      selectedFilter = name;
       captureSelection();
     }
 
@@ -157,43 +179,38 @@
       summaryList.innerHTML = "";
       imageContainer.innerHTML = "";
 
-      const selections = [];
-
-      const systemType = document.getElementById("systemType").value;
-      if (systemType) {
-        summaryList.innerHTML += `<li><strong>System:</strong> ${systemType}</li>`;
-        if (systemType === 'furnace' || systemType === 'full') imageContainer.innerHTML += `<img src='Furnace.webp' alt='Trane Furnace' title='Trane Furnace'>`;
-        if (systemType === 'ac' || systemType === 'full') imageContainer.innerHTML += `<img src='air_conditioner.webp' alt='Trane Air Conditioner' title='Trane Air Conditioner'>`;
+      if (selectedSystem) {
+        const systemText = selectedSystem === 'full' ? 'Full System (Furnace & AC)' : selectedSystem.charAt(0).toUpperCase() + selectedSystem.slice(1);
+        summaryList.innerHTML += `<li><strong>System:</strong> ${systemText}</li>`;
+        if (selectedSystem === 'furnace' || selectedSystem === 'full') imageContainer.innerHTML += `<img src='Furnace.webp' alt='Trane Furnace'>`;
+        if (selectedSystem === 'ac' || selectedSystem === 'full') imageContainer.innerHTML += `<img src='air_conditioner.webp' alt='Trane AC'>`;
       }
 
       const efficiency = document.querySelector("input[name='efficiency']:checked");
       if (efficiency) summaryList.innerHTML += `<li><strong>Efficiency:</strong> ${efficiency.value}</li>`;
 
-      const thermostat = document.querySelector("input[name='thermostat']:checked");
-      if (thermostat) {
-        summaryList.innerHTML += `<li><strong>Thermostat:</strong> ${thermostat.value}</li>`;
-        imageContainer.innerHTML += `<img src='Thermostat_${thermostat.value.replace(" ", "_")}.jpg' alt='${thermostat.value}' title='${thermostat.value}'>`;
+      if (selectedThermostat) {
+        summaryList.innerHTML += `<li><strong>Thermostat:</strong> ${selectedThermostat}</li>`;
+        imageContainer.innerHTML += `<img src='Thermostat_${selectedThermostat.replace(" ", "_")}.jpg' alt='${selectedThermostat}'>`;
       }
 
-      const accessories = document.querySelectorAll("input[name='accessory']:checked");
-      accessories.forEach(acc => {
-        summaryList.innerHTML += `<li><strong>Accessory:</strong> ${acc.value}</li>`;
+      selectedAccessories.forEach(acc => {
+        summaryList.innerHTML += `<li><strong>Accessory:</strong> ${acc}</li>`;
         const imgMap = {
           'Humidifier': 'Humidifier.jpg',
           'Air Purifier': 'Air_Purifier.jpg'
         };
-        if (imgMap[acc.value]) imageContainer.innerHTML += `<img src='${imgMap[acc.value]}' alt='${acc.value}' title='${acc.value}'>`;
+        if (imgMap[acc]) imageContainer.innerHTML += `<img src='${imgMap[acc]}' alt='${acc}'>`;
       });
 
-      const filter = document.querySelector("input[name='filter']:checked");
-      if (filter) {
-        summaryList.innerHTML += `<li><strong>Filter:</strong> ${filter.value}</li>`;
+      if (selectedFilter) {
+        summaryList.innerHTML += `<li><strong>Filter:</strong> ${selectedFilter}</li>`;
         const imgMap = {
           '1 Inch': 'Filter_1Inch.webp',
           '4 Inch': 'Filter_4inch.jpg',
           'CleanEffects': 'Filter_Cleaneffects.png'
         };
-        if (imgMap[filter.value]) imageContainer.innerHTML += `<img src='${imgMap[filter.value]}' alt='${filter.value}' title='${filter.value}'>`;
+        if (imgMap[selectedFilter]) imageContainer.innerHTML += `<img src='${imgMap[selectedFilter]}' alt='${selectedFilter}'>`;
       }
 
       document.getElementById("summary").classList.remove("hidden");
