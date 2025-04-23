@@ -105,9 +105,18 @@
 
     <div class="section">
       <label>Select the equipment you're replacing:</label>
-      <img src="Furnace.webp" class="option-img" onclick="selectSystem('furnace')" alt="Trane Furnace">
-      <img src="air_conditioner.webp" class="option-img" onclick="selectSystem('ac')" alt="Trane AC">
-      <img src="Furnace.webp" class="option-img" onclick="selectSystem('full')" alt="Full System (Furnace + AC)">
+      <div style="text-align:center">
+  <img src="Furnace.webp" class="option-img" onclick="selectSystem('furnace')" alt="Trane Furnace">
+  <p>High-efficiency heating, ideal for consistent winter comfort and energy savings.</p>
+</div>
+      <div style="text-align:center">
+  <img src="air_conditioner.webp" class="option-img" onclick="selectSystem('ac')" alt="Trane AC">
+  <p>Efficient cooling to keep your home comfortable during summer heat.</p>
+</div>
+      <div style="text-align:center">
+  <img src="Furnace.webp" class="option-img" onclick="selectSystem('full')" alt="Full System (Furnace + AC)">
+  <p>Complete comfort solution with both heating and cooling upgrades.</p>
+</div>
     </div>
 
     <div id="efficiencySection" class="section hidden">
@@ -119,17 +128,38 @@
 
     <div id="accessories" class="section hidden">
       <label>Choose Your Thermostat</label>
-      <img src="Thermostat_T4.jpg" class="option-img" onclick="selectThermostat('Honeywell T4')" alt="Honeywell T4">
-      <img src="Thermostat_Ecobee.png" class="option-img" onclick="selectThermostat('Ecobee Pro')" alt="Ecobee Pro">
+      <div style="text-align:center">
+  <img src="Thermostat_T4.jpg" class="option-img" onclick="selectThermostat('Honeywell T4')" alt="Honeywell T4">
+  <p>Simple, reliable programmable control with energy-saving settings.</p>
+</div>
+      <div style="text-align:center">
+  <img src="Thermostat_Ecobee.png" class="option-img" onclick="selectThermostat('Ecobee Pro')" alt="Ecobee Pro">
+  <p>Smart thermostat with Wi-Fi, voice control, and home automation integration.</p>
+</div>
 
       <label style="margin-top:15px;">Optional Accessories</label><br>
-      <img src="Humidifier.jpg" class="option-img" onclick="toggleAccessory('Humidifier')" alt="Humidifier">
-      <img src="Air_Purifier.jpg" class="option-img" onclick="toggleAccessory('Air Purifier')" alt="Air Purifier">
+      <div style="text-align:center">
+  <img src="Humidifier.jpg" class="option-img" onclick="toggleAccessory('Humidifier')" alt="Humidifier">
+  <p>Adds moisture to dry air to protect your comfort and home finishes.</p>
+</div>
+      <div style="text-align:center">
+  <img src="Air_Purifier.jpg" class="option-img" onclick="toggleAccessory('Air Purifier')" alt="Air Purifier">
+  <p>Reduces allergens, odors, and airborne contaminants for cleaner air.</p>
+</div>
 
       <label style="margin-top:15px;">Filtration Options</label><br>
-      <img src="Filter_1Inch.webp" class="option-img" onclick="selectFilter('1 Inch')" alt="1 Inch Filter">
-      <img src="Filter_4inch.jpg" class="option-img" onclick="selectFilter('4 Inch')" alt="4 Inch Media Filter">
-      <img src="Filter_Cleaneffects.png" class="option-img" onclick="selectFilter('CleanEffects')" alt="CleanEffects Air Cleaner">
+      <div style="text-align:center">
+  <img src="Filter_1Inch.webp" class="option-img" onclick="selectFilter('1 Inch')" alt="1 Inch Filter">
+  <p>Standard filtration option, changed monthly for basic dust control.</p>
+</div>
+      <div style="text-align:center">
+  <img src="Filter_4inch.jpg" class="option-img" onclick="selectFilter('4 Inch')" alt="4 Inch Media Filter">
+  <p>Improved dust and allergen removal with longer-lasting filter changes.</p>
+</div>
+      <div style="text-align:center">
+  <img src="Filter_Cleaneffects.png" class="option-img" onclick="selectFilter('CleanEffects')" alt="CleanEffects Air Cleaner">
+  <p>Premium filtration removing up to 99.98% of particles from indoor air.</p>
+</div>
     </div>
 
     <div class="summary section hidden" id="summary">
