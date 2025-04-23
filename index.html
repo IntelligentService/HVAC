@@ -1,192 +1,222 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HVAC Sales Form</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #eef7fb, #ffffff);
-      color: #333;
+      font-family: Arial, sans-serif;
+      background: #f5fafd;
       margin: 0;
-      padding: 0;
+      padding: 20px;
     }
     .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 30px;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    header img {
-      max-width: 280px;
-    }
-    h1 {
-      font-size: 28px;
-      color: #007cbf;
-      margin-top: 10px;
+      max-width: 960px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
     .section {
-      border: 1px solid #cfe6f1;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 25px;
-      background: #f9fcfe;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 8px;
-      font-size: 16px;
-      color: #222;
+      margin-bottom: 30px;
     }
     .options-grid {
       display: flex;
+      gap: 20px;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
     }
     .option-box {
-      width: 200px;
+      width: 180px;
       text-align: center;
     }
     .option-img {
-      width: 180px;
-      border-radius: 10px;
-      border: 2px solid transparent;
+      width: 100%;
+      border-radius: 8px;
+      border: 3px solid transparent;
       cursor: pointer;
       transition: border-color 0.3s;
     }
     .option-img:hover {
       border-color: #007cbf;
     }
-    .option-img.selected {
-      border-color: #28a745;
+    .selected {
+      border-color: #28a745 !important;
     }
     .summary {
       border-top: 2px solid #007cbf;
-      padding-top: 30px;
-      margin-top: 40px;
+      padding-top: 20px;
     }
-    .summary h2 {
-      color: #007cbf;
-      margin-bottom: 15px;
-    }
-    .summary-content {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .summary-content img {
-      width: 220px;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      object-fit: contain;
-      transition: transform 0.2s ease;
-    }
-    .summary-content img:hover {
-      transform: scale(1.03);
+    .summary img {
+      width: 150px;
+      margin: 10px;
+      border-radius: 8px;
     }
     button {
+      margin-top: 15px;
       padding: 10px 20px;
-      background-color: #007cbf;
+      background: #007cbf;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 4px;
       cursor: pointer;
-      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <img src="IP-lockup-trans.png" alt="Intelligent Service Logo" />
-      <h1>Customize Your New HVAC System</h1>
-    </header>
+<div class="container">
+  <h1>Customize Your HVAC System</h1>
 
-    <div class="section">
-      <label>Select the equipment you're replacing:</label>
-      <div class="options-grid">
-        <div class="option-box">
-          <img src="Furnace.png" class="option-img" id="furnaceImg" onclick="toggleSystem('furnace')" alt="Trane Furnace">
-          <p>High-efficiency heating, ideal for consistent winter comfort and energy savings.</p>
-        </div>
-        <div class="option-box">
-          <img src="air_conditioner.png" class="option-img" id="acImg" onclick="toggleSystem('ac')" alt="Trane AC">
-          <p>Efficient cooling to keep your home comfortable during summer heat.</p>
-        </div>
-        <div class="option-box">
-          <img src="Full_system.png" class="option-img" id="fullImg" onclick="toggleSystem('full')" alt="Full System (Furnace + AC)">
-          <p>Complete comfort solution with both heating and cooling upgrades.</p>
-        </div>
+  <div class="section">
+    <h3>Select Equipment</h3>
+    <div class="options-grid">
+      <div class="option-box">
+        <img src="Furnace.png" class="option-img" id="furnace" onclick="toggleOption('system','furnace')" alt="Furnace"/>
+        <p>Furnace</p>
       </div>
-    </div>
-
-    <div id="efficiencySection" class="section hidden">
-      <label>Efficiency Level</label>
-      <input type="radio" name="efficiency" value="Standard" onchange="captureSelection()"> Standard (Lower cost, basic performance.) <br>
-      <input type="radio" name="efficiency" value="Mid" onchange="captureSelection()"> Mid Efficiency (Balance between cost and energy savings.) <br>
-      <input type="radio" name="efficiency" value="High" onchange="captureSelection()"> High Efficiency (Maximum comfort, quiet operation, and savings.)
-    </div>
-
-    <div id="accessories" class="section hidden">
-      <label>Choose Your Thermostat</label>
-      <div class="options-grid">
-        <div class="option-box">
-          <img src="Thermostat_T4.png" class="option-img" id="thermostatT4Img" onclick="toggleThermostat('Honeywell T4')" alt="Honeywell T4">
-          <p>Simple, reliable programmable control with energy-saving settings.</p>
-        </div>
-        <div class="option-box">
-          <img src="Thermostat_Ecobee.png" class="option-img" id="thermostatEcobeeImg" onclick="toggleThermostat('Ecobee Pro')" alt="Ecobee Pro">
-          <p>Smart thermostat with Wi-Fi, voice control, and home automation integration.</p>
-        </div>
+      <div class="option-box">
+        <img src="air_conditioner.png" class="option-img" id="ac" onclick="toggleOption('system','ac')" alt="Air Conditioner"/>
+        <p>Air Conditioner</p>
       </div>
-
-      <label style="margin-top:15px;">Optional Accessories</label>
-      <div class="options-grid">
-        <div class="option-box">
-          <img src="Humidifier.png" class="option-img" id="humidifierImg" onclick="toggleAccessory('Humidifier')" alt="Humidifier">
-          <p>Adds moisture to dry air to protect your comfort and home finishes.</p>
-        </div>
-        <div class="option-box">
-          <img src="Air_Purifier.png" class="option-img" id="airPurifierImg" onclick="toggleAccessory('Air Purifier')" alt="Air Purifier">
-          <p>Reduces allergens, odors, and airborne contaminants for cleaner air.</p>
-        </div>
+      <div class="option-box">
+        <img src="Full_system.png" class="option-img" id="full" onclick="toggleOption('system','full')" alt="Full System"/>
+        <p>Full System</p>
       </div>
-
-      <label style="margin-top:15px;">Filtration Options</label>
-      <div class="options-grid">
-        <div class="option-box">
-          <img src="Filter_1Inch.png" class="option-img" id="filter1Img" onclick="toggleFilter('1 Inch')" alt="1 Inch Filter">
-          <p>Standard filtration option, changed monthly for basic dust control.</p>
-        </div>
-        <div class="option-box">
-          <img src="Filter_4inch.png" class="option-img" id="filter4Img" onclick="toggleFilter('4 Inch')" alt="4 Inch Media Filter">
-          <p>Improved dust and allergen removal with longer-lasting filter changes.</p>
-        </div>
-        <div class="option-box">
-          <img src="Filter_Cleaneffects.png" class="option-img" id="filterCleanImg" onclick="toggleFilter('CleanEffects')" alt="CleanEffects Air Cleaner">
-          <p>Premium filtration removing up to 99.98% of particles from indoor air.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="summary section hidden" id="summary">
-      <h2>Your Selection Summary</h2>
-      <ul id="summaryList"></ul>
-      <div class="summary-content" id="imagePreviewContainer"></div>
-      <button onclick="window.print()">Download PDF</button>
-      <button onclick="emailSelection()">Email Selections</button>
     </div>
   </div>
+
+  <div class="section">
+    <h3>Efficiency Level</h3>
+    <label><input type="radio" name="efficiency" value="Standard"> Standard (SEER 13–14)</label><br>
+    <label><input type="radio" name="efficiency" value="Mid"> Mid (SEER 15–17)</label><br>
+    <label><input type="radio" name="efficiency" value="High"> High (SEER 18+)</label>
+  </div>
+
+  <div class="section">
+    <h3>Thermostat</h3>
+    <div class="options-grid">
+      <div class="option-box">
+        <img src="Thermostat_T4.png" class="option-img" id="tstatT4" onclick="toggleOption('thermostat','Honeywell T4')" alt="T4"/>
+        <p>Honeywell T4</p>
+      </div>
+      <div class="option-box">
+        <img src="Thermostat_Ecobee.png" class="option-img" id="tstatEco" onclick="toggleOption('thermostat','Ecobee Pro')" alt="Ecobee"/>
+        <p>Ecobee Pro</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Accessories</h3>
+    <div class="options-grid">
+      <div class="option-box">
+        <img src="Humidifier.png" class="option-img" id="humidifier" onclick="toggleMulti('accessories','Humidifier')" alt="Humidifier"/>
+        <p>Humidifier</p>
+      </div>
+      <div class="option-box">
+        <img src="Air_Purifier.png" class="option-img" id="purifier" onclick="toggleMulti('accessories','Air Purifier')" alt="Air Purifier"/>
+        <p>Air Purifier</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Filtration</h3>
+    <div class="options-grid">
+      <div class="option-box">
+        <img src="Filter_1Inch.png" class="option-img" id="filter1" onclick="toggleOption('filter','1 Inch')" alt="1 Inch"/>
+        <p>1&quot; Filter Rack</p>
+      </div>
+      <div class="option-box">
+        <img src="Filter_4inch.png" class="option-img" id="filter4" onclick="toggleOption('filter','4 Inch')" alt="4 Inch"/>
+        <p>4&quot; Media Filter</p>
+      </div>
+      <div class="option-box">
+        <img src="Filter_Cleaneffects.png" class="option-img" id="cleaneffects" onclick="toggleOption('filter','CleanEffects')" alt="CleanEffects"/>
+        <p>CleanEffects™</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section summary">
+    <h2>Your Selections</h2>
+    <ul id="summaryList"></ul>
+    <button onclick="generateSummary()">Update Summary</button>
+    <button onclick="window.print()">Download PDF</button>
+    <button onclick="emailSelection()">Email Selections</button>
+  </div>
+</div>
+
+<script>
+  let selected = {
+    system: '',
+    efficiency: '',
+    thermostat: '',
+    accessories: [],
+    filter: ''
+  };
+
+  function toggleOption(type, value) {
+    const current = selected[type];
+    if (current === value) {
+      selected[type] = '';
+      document.querySelector(`#${getId(type, value)}`).classList.remove('selected');
+    } else {
+      if (current) document.querySelector(`#${getId(type, current)}`).classList.remove('selected');
+      selected[type] = value;
+      document.querySelector(`#${getId(type, value)}`).classList.add('selected');
+    }
+  }
+
+  function toggleMulti(type, value) {
+    const index = selected[type].indexOf(value);
+    const id = getId(type, value);
+    if (index > -1) {
+      selected[type].splice(index, 1);
+      document.getElementById(id).classList.remove('selected');
+    } else {
+      selected[type].push(value);
+      document.getElementById(id).classList.add('selected');
+    }
+  }
+
+  function getId(type, value) {
+    const map = {
+      'system': {'furnace': 'furnace', 'ac': 'ac', 'full': 'full'},
+      'thermostat': {'Honeywell T4': 'tstatT4', 'Ecobee Pro': 'tstatEco'},
+      'accessories': {'Humidifier': 'humidifier', 'Air Purifier': 'purifier'},
+      'filter': {'1 Inch': 'filter1', '4 Inch': 'filter4', 'CleanEffects': 'cleaneffects'}
+    };
+    return map[type][value];
+  }
+
+  function generateSummary() {
+    const list = document.getElementById('summaryList');
+    list.innerHTML = '';
+    for (const key in selected) {
+      const val = selected[key];
+      if (Array.isArray(val) && val.length) {
+        val.forEach(v => list.innerHTML += `<li><strong>${capitalize(key)}:</strong> ${v}</li>`);
+      } else if (val) {
+        list.innerHTML += `<li><strong>${capitalize(key)}:</strong> ${val}</li>`;
+      }
+    }
+    const eff = document.querySelector('input[name="efficiency"]:checked');
+    if (eff) selected.efficiency = eff.value;
+  }
+
+  function emailSelection() {
+    generateSummary();
+    const body = encodeURIComponent(document.getElementById('summaryList').innerText);
+    const subject = encodeURIComponent('HVAC System Selection Summary');
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  }
+
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+</script>
 </body>
 </html>
