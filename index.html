@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HVAC Sales Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #eef7fb, #ffffff);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header img {
+      max-width: 280px;
+    }
+    h1 {
+      font-size: 28px;
+      color: #007cbf;
+      margin-top: 10px;
+    }
+    .section {
+      border: 1px solid #cfe6f1;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 25px;
+      background: #f9fcfe;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+      color: #222;
+    }
+    .options-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .option-box {
+      width: 200px;
+      text-align: center;
+    }
+    .option-img {
+      width: 180px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    .option-img:hover {
+      border-color: #007cbf;
+    }
+    .option-img.selected {
+      border-color: #28a745;
+    }
+    .summary {
+      border-top: 2px solid #007cbf;
+      padding-top: 30px;
+      margin-top: 40px;
+    }
+    .summary h2 {
+      color: #007cbf;
+      margin-bottom: 15px;
+    }
+    .summary-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .summary-content img {
+      width: 220px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      object-fit: contain;
+      transition: transform 0.2s ease;
+    }
+    .summary-content img:hover {
+      transform: scale(1.03);
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007cbf;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="IP-lockup-trans.png" alt="Intelligent Service Logo" />
+      <h1>Customize Your New HVAC System</h1>
+    </header>
+
+    <div class="section">
+      <label>Select the equipment you're replacing:</label>
+      <div class="options-grid">
+        <div class="option-box">
+          <img src="Furnace.png" class="option-img" id="furnaceImg" onclick="toggleSystem('furnace')" alt="Trane Furnace">
+          <p>High-efficiency heating, ideal for consistent winter comfort and energy savings.</p>
+        </div>
+        <div class="option-box">
+          <img src="air_conditioner.png" class="option-img" id="acImg" onclick="toggleSystem('ac')" alt="Trane AC">
+          <p>Efficient cooling to keep your home comfortable during summer heat.</p>
+        </div>
+        <div class="option-box">
+          <img src="Full_system.png" class="option-img" id="fullImg" onclick="toggleSystem('full')" alt="Full System (Furnace + AC)">
+          <p>Complete comfort solution with both heating and cooling upgrades.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="efficiencySection" class="section hidden">
+      <label>Efficiency Level</label>
+      <input type="radio" name="efficiency" value="Standard" onchange="captureSelection()"> Standard (Lower cost, basic performance.) <br>
+      <input type="radio" name="efficiency" value="Mid" onchange="captureSelection()"> Mid Efficiency (Balance between cost and energy savings.) <br>
+      <input type="radio" name="efficiency" value="High" onchange="captureSelection()"> High Efficiency (Maximum comfort, quiet operation, and savings.)
+    </div>
+
+    <div id="accessories" class="section hidden">
+      <label>Choose Your Thermostat</label>
+      <div class="options-grid">
+        <div class="option-box">
+          <img src="Thermostat_T4.png" class="option-img" id="thermostatT4Img" onclick="toggleThermostat('Honeywell T4')" alt="Honeywell T4">
+          <p>Simple, reliable programmable control with energy-saving settings.</p>
+        </div>
+        <div class="option-box">
+          <img src="Thermostat_Ecobee.png" class="option-img" id="thermostatEcobeeImg" onclick="toggleThermostat('Ecobee Pro')" alt="Ecobee Pro">
+          <p>Smart thermostat with Wi-Fi, voice control, and home automation integration.</p>
+        </div>
+      </div>
+
+      <label style="margin-top:15px;">Optional Accessories</label>
+      <div class="options-grid">
+        <div class="option-box">
+          <img src="Humidifier.png" class="option-img" id="humidifierImg" onclick="toggleAccessory('Humidifier')" alt="Humidifier">
+          <p>Adds moisture to dry air to protect your comfort and home finishes.</p>
+        </div>
+        <div class="option-box">
+          <img src="Air_Purifier.png" class="option-img" id="airPurifierImg" onclick="toggleAccessory('Air Purifier')" alt="Air Purifier">
+          <p>Reduces allergens, odors, and airborne contaminants for cleaner air.</p>
+        </div>
+      </div>
+
+      <label style="margin-top:15px;">Filtration Options</label>
+      <div class="options-grid">
+        <div class="option-box">
+          <img src="Filter_1Inch.png" class="option-img" id="filter1Img" onclick="toggleFilter('1 Inch')" alt="1 Inch Filter">
+          <p>Standard filtration option, changed monthly for basic dust control.</p>
+        </div>
+        <div class="option-box">
+          <img src="Filter_4inch.png" class="option-img" id="filter4Img" onclick="toggleFilter('4 Inch')" alt="4 Inch Media Filter">
+          <p>Improved dust and allergen removal with longer-lasting filter changes.</p>
+        </div>
+        <div class="option-box">
+          <img src="Filter_Cleaneffects.png" class="option-img" id="filterCleanImg" onclick="toggleFilter('CleanEffects')" alt="CleanEffects Air Cleaner">
+          <p>Premium filtration removing up to 99.98% of particles from indoor air.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary section hidden" id="summary">
+      <h2>Your Selection Summary</h2>
+      <ul id="summaryList"></ul>
+      <div class="summary-content" id="imagePreviewContainer"></div>
+      <button onclick="window.print()">Download PDF</button>
+      <button onclick="emailSelection()">Email Selections</button>
+    </div>
+  </div>
+</body>
+</html>
