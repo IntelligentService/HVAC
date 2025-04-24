@@ -1,226 +1,301 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HVAC Sales Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customize Your HVAC Equipment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5fafd;
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
-    .container {
-      max-width: 960px;
-      margin: auto;
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f2faff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .page {
+      text-align: center;
+      max-width: 600px;
+      padding: 30px;
       background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+      display: none;
     }
-    .section {
-      margin-bottom: 30px;
+    .page.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .logo {
+      width: 200px;
+      margin-bottom: 20px;
+    }
+    h1, h2 {
+      color: #007cbf;
+      margin-bottom: 20px;
     }
     .options-grid {
       display: flex;
+      justify-content: center;
       gap: 20px;
       flex-wrap: wrap;
-      justify-content: center;
     }
     .option-box {
-      width: 180px;
+      width: 150px;
       text-align: center;
+      cursor: pointer;
     }
     .option-img {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 3px solid transparent;
-      cursor: pointer;
       transition: border-color 0.3s;
     }
     .option-img:hover {
       border-color: #007cbf;
     }
-    .selected {
-      border-color: #28a745 !important;
-    }
-    .summary {
-      border-top: 2px solid #007cbf;
-      padding-top: 20px;
-    }
-    .summary img {
-      width: 150px;
-      margin: 10px;
-      border-radius: 8px;
+    .option-img.selected {
+      border-color: #28a745;
     }
     button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: #007cbf;
+      background-color: #007cbf;
       color: white;
       border: none;
-      border-radius: 4px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #005f94;
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <header style="text-align:center">
-    <img src="IP-lockup-trans.png" style="max-width: 300px;" alt="Intelligent Service Logo"/>
-    <h1>Customize Your New HVAC System</h1>
-  </header>
+  <!-- Page 1: Intro -->
+  <div class="page show" id="introPage">
+    <img src="IP-lockup-trans.png" class="logo" alt="Intelligent Service Logo" />
+    <h1>Customize Your HVAC Equipment</h1>
+    <button onclick="goToNextPage('introPage', 'equipmentPage')">Start</button>
+  </div>
 
-  <div class="section">
-    <h3>Select Equipment</h3>
+  <!-- Page 2: Equipment Selection -->
+  <div class="page" id="equipmentPage">
+    <img src="IP-lockup-trans.png" class="logo" alt="Intelligent Service Logo" />
+    <h2>What would you like to replace?</h2>
     <div class="options-grid">
-      <div class="option-box">
-        <img src="Furnace.png" class="option-img" id="furnace" onclick="toggleOption('system','furnace')" alt="Furnace"/>
+      <div class="option-box" onclick="selectOption(this, 'system', 'Furnace')">
+        <img src="Furnace.png" class="option-img" alt="Furnace">
         <p>Furnace</p>
       </div>
-      <div class="option-box">
-        <img src="Air_conditioner.png" class="option-img" id="ac" onclick="toggleOption('system','ac')" alt="Air Conditioner"/>
+      <div class="option-box" onclick="selectOption(this, 'system', 'Air Conditioner')">
+        <img src="air_conditioner.png" class="option-img" alt="Air Conditioner">
         <p>Air Conditioner</p>
       </div>
-      <div class="option-box">
-        <img src="Full_system.png" class="option-img" id="full" onclick="toggleOption('system','full')" alt="Full System"/>
+      <div class="option-box" onclick="selectOption(this, 'system', 'Full System')">
+        <img src="Full_system.png" class="option-img" alt="Full System">
         <p>Full System</p>
       </div>
     </div>
+    <button onclick="goToNextPage('equipmentPage', 'efficiencyPage')">Next</button>
   </div>
 
-  <div class="section">
-    <h3>Efficiency Level</h3>
-    <label><input type="radio" name="efficiency" value="Standard"> Standard (SEER 13–14)</label><br>
-    <label><input type="radio" name="efficiency" value="Mid"> Mid (SEER 15–17)</label><br>
-    <label><input type="radio" name="efficiency" value="High"> High (SEER 18+)</label>
-  </div>
-
-  <div class="section">
-    <h3>Thermostat</h3>
+  <!-- Page 3: Efficiency Selection -->
+  <div class="page" id="efficiencyPage">
+    <img src="IP-lockup-trans.png" class="logo" alt="Intelligent Service Logo" />
+    <h2>Choose Your Efficiency Level</h2>
     <div class="options-grid">
-      <div class="option-box">
-        <img src="Thermostat_T4.png" class="option-img" id="tstatT4" onclick="toggleOption('thermostat','Honeywell T4')" alt="T4"/>
+      <div class="option-box" onclick="selectOption(this, 'efficiency', 'Standard (SEER 13–14)')">
+        <img src="efficiency_standard.png" class="option-img" alt="Standard">
+        <p>Standard (SEER 13–14)</p>
+      </div>
+      <div class="option-box" onclick="selectOption(this, 'efficiency', 'Mid (SEER 15–17)')">
+        <img src="efficiency_mid.png" class="option-img" alt="Mid Efficiency">
+        <p>Mid Efficiency (SEER 15–17)</p>
+      </div>
+      <div class="option-box" onclick="selectOption(this, 'efficiency', 'High (SEER 18+)')">
+        <img src="efficiency_high.png" class="option-img" alt="High Efficiency">
+        <p>High Efficiency (SEER 18+)</p>
+      </div>
+    </div>
+    <button onclick="goToNextPage('efficiencyPage', 'thermostatPage')">Next</button>
+  </div>
+
+  <!-- Page 4: Thermostat Selection -->
+  <div class="page" id="thermostatPage">
+    <img src="IP-lockup-trans.png" class="logo" alt="Intelligent Service Logo" />
+    <h2>Select Your Thermostat</h2>
+    <div class="options-grid">
+      <div class="option-box" onclick="selectOption(this, 'thermostat', 'Honeywell T4')">
+        <img src="Thermostat_T4.png" class="option-img" alt="Honeywell T4">
         <p>Honeywell T4</p>
       </div>
-      <div class="option-box">
-        <img src="Thermostat_Ecobee.png" class="option-img" id="tstatEco" onclick="toggleOption('thermostat','Ecobee Pro')" alt="Ecobee"/>
+      <div class="option-box" onclick="selectOption(this, 'thermostat', 'Ecobee Pro')">
+        <img src="Thermostat_Ecobee.png" class="option-img" alt="Ecobee Pro">
         <p>Ecobee Pro</p>
       </div>
     </div>
+    <button onclick="goToNextPage('thermostatPage', 'accessoriesPage')">Next</button>
   </div>
 
-  <div class="section">
-    <h3>Accessories</h3>
+  <!-- Page 5: Accessories Selection -->
+  <div class="page" id="accessoriesPage">
+    <img src="IP-lockup-trans.png" class="logo" alt="Intelligent Service Logo" />
+    <h2>Choose Optional Accessories</h2>
     <div class="options-grid">
-      <div class="option-box">
-        <img src="Humidifier.png" class="option-img" id="humidifier" onclick="toggleMulti('accessories','Humidifier')" alt="Humidifier"/>
+      <div class="option-box" onclick="toggleMultiOption(this, 'accessories', 'Humidifier')">
+        <img src="Humidifier.png" class="option-img" alt="Humidifier">
         <p>Humidifier</p>
       </div>
-      <div class="option-box">
-        <img src="Air_Purifier.png" class="option-img" id="purifier" onclick="toggleMulti('accessories','Air Purifier')" alt="Air Purifier"/>
+      <div class="option-box" onclick="toggleMultiOption(this, 'accessories', 'Air Purifier')">
+        <img src="Air_Purifier.png" class="option-img" alt="Air Purifier">
         <p>Air Purifier</p>
       </div>
     </div>
+    <button onclick="goToNextPage('accessoriesPage', 'filtrationPage')">Next</button>
   </div>
 
-  <div class="section">
-    <h3>Filtration</h3>
+  <!-- Page 6: Filtration Selection -->
+  <div class="page" id="filtrationPage">
+    <img src="IP-lockup-trans.png" class="logo" alt="Intelligent Service Logo" />
+    <h2>Select a Filtration Option</h2>
     <div class="options-grid">
-      <div class="option-box">
-        <img src="Filter_1inch.png" class="option-img" id="filter1" onclick="toggleOption('filter','1 Inch')" alt="1 Inch"/>
-        <p>1&quot; Filter Rack</p>
+      <div class="option-box" onclick="selectOption(this, 'filtration', '1 Inch Filter')">
+        <img src="Filter_1Inch.png" class="option-img" alt="1 Inch Filter">
+        <p>1" Filter Rack</p>
       </div>
-      <div class="option-box">
-        <img src="Filter_4inch.png" class="option-img" id="filter4" onclick="toggleOption('filter','4 Inch')" alt="4 Inch"/>
-        <p>4&quot; Media Filter</p>
+      <div class="option-box" onclick="selectOption(this, 'filtration', '4 Inch Media Filter')">
+        <img src="Filter_4inch.png" class="option-img" alt="4 Inch Media Filter">
+        <p>4" Media Filter Cabinet</p>
       </div>
-      <div class="option-box">
-        <img src="Filter_CleanEffects.png" class="option-img" id="cleaneffects" onclick="toggleOption('filter','CleanEffects')" alt="CleanEffects"/>
-        <p>CleanEffects™</p>
+      <div class="option-box" onclick="selectOption(this, 'filtration', 'CleanEffects Air Cleaner')">
+        <img src="Filter_Cleaneffects.png" class="option-img" alt="CleanEffects">
+        <p>CleanEffects™ Air Cleaner</p>
       </div>
     </div>
+    <button onclick="goToNextPage('filtrationPage', 'summaryPage')">Next</button>
   </div>
 
-  <div class="section summary">
-    <h2>Your Selections</h2>
-    <ul id="summaryList"></ul>
-    <button onclick="generateSummary()">Update Summary</button>
-    <button onclick="window.print()">Download PDF</button>
-    <button onclick="emailSelection()">Email Selections</button>
+  <!-- Page 7: Summary and PDF Generation -->
+  <div class="page" id="summaryPage">
+    <img src="IP-lockup-trans.png" class="logo" alt="Intelligent Service Logo" />
+    <h2>Your Selections Summary</h2>
+    <ul id="summaryList" style="text-align: left; margin: 20px auto; max-width: 400px;"></ul>
+    <div style="margin-top: 30px; text-align: left;">
+      <h3 style="margin-bottom: 10px; color: #007cbf;">Customer Signature</h3>
+      <p style="margin-bottom: 5px;">Name: __________________________________________</p>
+      <p style="margin-bottom: 5px;">Signature: _______________________________________</p>
+      <p>Date: ________________________</p>
+    </div>
+    <button onclick="generateSummary()">Generate Summary</button>
+    <button onclick="emailSummary()">Email Summary</button>
+    <button onclick="generatePDF()">Download Proposal as PDF</button>
   </div>
-</div>
 
 <script>
-  let selected = {
-    system: '',
-    efficiency: '',
-    thermostat: '',
-    accessories: [],
-    filter: ''
-  };
+    function goToNextPage(currentId, nextId) {
+      const current = document.getElementById(currentId);
+      current.classList.remove('show');
+      setTimeout(() => {
+        current.style.display = 'none';
+        if (nextId) {
+          const next = document.getElementById(nextId);
+          next.style.display = 'block';
+          setTimeout(() => next.classList.add('show'), 50);
+        } else {
+          alert('Next page coming soon...');
+        }
+      }, 600);
+    }
 
-  function toggleOption(type, value) {
-    const current = selected[type];
-    if (current === value) {
-      selected[type] = '';
-      document.querySelector(`#${getId(type, value)}`).classList.remove('selected');
+    const selections = {
+  accessories: []
+};
+    function selectOption(el, category, value) {
+  selections[category] = value;
+  // deselect others in the same category
+  document.querySelectorAll(`[onclick*="selectOption"][onclick*='${category}']`).forEach(box => box.querySelector('img').classList.remove('selected'));
+  el.querySelector('img').classList.add('selected');
+}
+  function toggleMultiOption(el, category, value) {
+  const img = el.querySelector('img');
+  if (!selections[category].includes(value)) {
+    selections[category].push(value);
+    img.classList.add('selected');
+  } else {
+    selections[category] = selections[category].filter(v => v !== value);
+    img.classList.remove('selected');
+  }
+}
+function generateSummary() {
+  const list = document.getElementById('summaryList');
+  list.innerHTML = '';
+  for (const [key, val] of Object.entries(selections)) {
+    if (Array.isArray(val)) {
+      val.forEach(item => list.innerHTML += `<li><strong>${capitalize(key)}:</strong> ${item}</li>`);
     } else {
-      if (current) document.querySelector(`#${getId(type, current)}`).classList.remove('selected');
-      selected[type] = value;
-      document.querySelector(`#${getId(type, value)}`).classList.add('selected');
+      list.innerHTML += `<li><strong>${capitalize(key)}:</strong> ${val}</li>`;
     }
   }
+}
 
-  function toggleMulti(type, value) {
-    const index = selected[type].indexOf(value);
-    const id = getId(type, value);
-    if (index > -1) {
-      selected[type].splice(index, 1);
-      document.getElementById(id).classList.remove('selected');
-    } else {
-      selected[type].push(value);
-      document.getElementById(id).classList.add('selected');
-    }
-  }
+function capitalize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
 
-  function getId(type, value) {
-    const map = {
-      'system': {'furnace': 'furnace', 'ac': 'ac', 'full': 'full'},
-      'thermostat': {'Honeywell T4': 'tstatT4', 'Ecobee Pro': 'tstatEco'},
-      'accessories': {'Humidifier': 'humidifier', 'Air Purifier': 'purifier'},
-      'filter': {'1 Inch': 'filter1', '4 Inch': 'filter4', 'CleanEffects': 'cleaneffects'}
-    };
-    return map[type][value];
-  }
-
-  function generateSummary() {
-    const list = document.getElementById('summaryList');
-    list.innerHTML = '';
-    for (const key in selected) {
-      const val = selected[key];
-      if (Array.isArray(val) && val.length) {
-        val.forEach(v => list.innerHTML += `<li><strong>${capitalize(key)}:</strong> ${v}</li>`);
-      } else if (val) {
-        list.innerHTML += `<li><strong>${capitalize(key)}:</strong> ${val}</li>`;
-      }
-    }
-    const eff = document.querySelector('input[name="efficiency"]:checked');
-    if (eff) selected.efficiency = eff.value;
-  }
-
-  function emailSelection() {
-    generateSummary();
-    const body = encodeURIComponent(document.getElementById('summaryList').innerText);
-    const subject = encodeURIComponent('HVAC System Selection Summary');
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
-  }
-
-  function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+function emailSummary() {
+  generateSummary();
+  const body = encodeURIComponent(document.getElementById('summaryList').innerText);
+  const subject = encodeURIComponent('HVAC Proposal Summary');
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+}
+function generatePDF() {
+  generateSummary();
+  const printWindow = window.open('', '', 'width=800,height=900');
+  const summaryContent = document.getElementById('summaryList').innerHTML;
+  const signatureHTML = `
+    <div style='margin-top:30px;'>
+      <h3 style='color:#007cbf;'>Customer Signature</h3>
+      <p>Name: __________________________________________</p>
+      <p>Signature: _______________________________________</p>
+      <p>Date: ________________________</p>
+    </div>`;
+  printWindow.document.write(`
+    <html>
+      <head>
+        <title>Proposal Summary</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 20px; color: #333; }
+          h1 { color: #007cbf; }
+          ul { padding-left: 20px; }
+          img.logo { width: 180px; margin-bottom: 20px; }
+        </style>
+      </head>
+      <body>
+        <img src='IP-lockup-trans.png' class='logo' alt='Company Logo'/>
+        <h1>HVAC Proposal Summary</h1>
+        <ul>${summaryContent}</ul>
+        ${signatureHTML}
+      </body>
+    </html>`);
+  printWindow.document.close();
+  printWindow.print();
+}
 </script>
 </body>
 </html>
+
