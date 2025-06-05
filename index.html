@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HVAC Sales Form</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     :root {
       --brand-blue: #004b6b;
@@ -52,9 +51,10 @@
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
+      justify-content: center;
     }
     .option {
-      flex: 1 1 45%;
+      flex: 1 1 30%;
       border: 2px solid #ccc;
       padding: 15px;
       border-radius: var(--border-radius);
@@ -67,8 +67,9 @@
       box-shadow: 0 0 5px var(--brand-accent);
     }
     .option img {
-      width: 100px;
+      width: 100%;
       height: auto;
+      max-width: 120px;
       margin-bottom: 10px;
     }
     .nav-btns {
@@ -109,7 +110,7 @@
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Company Logo">
+    <img src="IP-lockup-trans.png" alt="Company Logo">
     <h1>Customize Your HVAC Equipment</h1>
     <div id="progressBar"></div>
   </header>
@@ -117,9 +118,18 @@
   <div id="page1" class="page active">
     <div class="title">Select System Type</div>
     <div class="options">
-      <div class="option" onclick="selectOption('Furnace')">Furnace</div>
-      <div class="option" onclick="selectOption('Air Conditioner')">Air Conditioner</div>
-      <div class="option" onclick="selectOption('Both Furnace & Air Conditioner')">Both</div>
+      <div class="option" onclick="selectOption('Furnace')">
+        <img src="Furnace.webp" alt="Furnace">
+        <p>Trane Furnace</p>
+      </div>
+      <div class="option" onclick="selectOption('Air Conditioner')">
+        <img src="air_conditioner.webp" alt="Air Conditioner">
+        <p>Trane Air Conditioner</p>
+      </div>
+      <div class="option" onclick="selectOption('Both Furnace & Air Conditioner')">
+        <img src="Furnace.webp" alt="Both">
+        <p>Trane Furnace & Air Conditioner</p>
+      </div>
     </div>
     <div class="nav-btns">
       <div></div>
@@ -128,11 +138,20 @@
   </div>
 
   <div id="page2" class="page">
-    <div class="title">Select Efficiency</div>
+    <div class="title">Select Efficiency Level</div>
     <div class="options">
-      <div class="option" onclick="selectOption('Standard (13-14 SEER)')">Standard (13-14 SEER)</div>
-      <div class="option" onclick="selectOption('Mid (15-17 SEER)')">Mid (15-17 SEER)</div>
-      <div class="option" onclick="selectOption('High (18+ SEER)')">High (18+ SEER)</div>
+      <div class="option" onclick="selectOption('Standard (14-15 SEER)')">
+        <img src="efficiency_standard.png" alt="Standard">
+        <p>Standard (14-15 SEER)</p>
+      </div>
+      <div class="option" onclick="selectOption('Mid (16-18 SEER)')">
+        <img src="efficiency_mid.png" alt="Mid">
+        <p>Mid (16-18 SEER)</p>
+      </div>
+      <div class="option" onclick="selectOption('High (19-22 SEER)')">
+        <img src="efficiency_high.png" alt="High">
+        <p>High (19-22 SEER)</p>
+      </div>
     </div>
     <div class="nav-btns">
       <button onclick="prevPage()">Back</button>
@@ -141,11 +160,19 @@
   </div>
 
   <div id="page3" class="page">
-    <div class="title">Choose Thermostat</div>
+    <div class="title">Select Thermostat</div>
     <div class="options">
-      <div class="option" onclick="selectOption('Honeywell T4')">Honeywell T4</div>
-      <div class="option" onclick="selectOption('Ecobee Pro')">Ecobee Pro</div>
-      <div class="option" onclick="selectOption('Keep existing thermostat')">Keep existing</div>
+      <div class="option" onclick="selectOption('Honeywell T4')">
+        <img src="Thermostat_T4.jpg" alt="Honeywell T4">
+        <p>Honeywell T4</p>
+      </div>
+      <div class="option" onclick="selectOption('Ecobee Pro')">
+        <img src="Thermostat_Ecobee.png" alt="Ecobee Pro">
+        <p>Ecobee Pro</p>
+      </div>
+      <div class="option" onclick="selectOption('Keep Existing Thermostat')">
+        <p>Keep Existing Thermostat</p>
+      </div>
     </div>
     <div class="nav-btns">
       <button onclick="prevPage()">Back</button>
@@ -154,10 +181,16 @@
   </div>
 
   <div id="page4" class="page">
-    <div class="title">Air Quality Options</div>
+    <div class="title">Air Quality Accessories</div>
     <div class="options">
-      <div class="option" onclick="selectOption('Humidifier')">Humidifier</div>
-      <div class="option" onclick="selectOption('Air Purifier')">Air Purifier</div>
+      <div class="option" onclick="selectOption('Humidifier')">
+        <img src="Humidifier.jpg" alt="Humidifier">
+        <p>Humidifier</p>
+      </div>
+      <div class="option" onclick="selectOption('Air Purifier')">
+        <img src="Air_Purifier.jpg" alt="Air Purifier">
+        <p>Air Purifier</p>
+      </div>
     </div>
     <div class="nav-btns">
       <button onclick="prevPage()">Back</button>
@@ -168,9 +201,18 @@
   <div id="page5" class="page">
     <div class="title">Filtration Options</div>
     <div class="options">
-      <div class="option" onclick="selectOption('1\" Filter Rack')">1" Filter Rack</div>
-      <div class="option" onclick="selectOption('4\" Media Filter Cabinet')">4" Media Filter Cabinet</div>
-      <div class="option" onclick="selectOption('CleanEffects™ Whole House Air Cleaner')">CleanEffects™ Whole House Air Cleaner</div>
+      <div class="option" onclick="selectOption('1\" Filter Rack')">
+        <img src="Filter_1Inch.webp" alt="1 inch">
+        <p>1" Filter Rack</p>
+      </div>
+      <div class="option" onclick="selectOption('4\" Media Filter Cabinet')">
+        <img src="Filter_4inch.jpg" alt="4 inch">
+        <p>4" Media Filter Cabinet</p>
+      </div>
+      <div class="option" onclick="selectOption('CleanEffects Air Cleaner')">
+        <img src="Filter_Cleaneffects.png" alt="CleanEffects">
+        <p>CleanEffects™ Air Cleaner</p>
+      </div>
     </div>
     <div class="nav-btns">
       <button onclick="prevPage()">Back</button>
@@ -179,10 +221,11 @@
   </div>
 
   <div id="page6" class="page">
-    <div class="title">Summary</div>
+    <div class="title">Summary of Selections</div>
     <div id="summary"></div>
     <div class="nav-btns">
       <button onclick="prevPage()">Back</button>
+      <button onclick="alert('PDF generation coming soon')">Download PDF</button>
     </div>
   </div>
 
